@@ -1,0 +1,317 @@
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Productivity Manager - Session</title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+	</script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+	<link rel="icon" type="image/png" href="static/owl.png" />
+	<style>
+		body,
+		html {
+			height: 100%;
+			margin: 0;
+		}
+
+		.bg {
+			/* The image used */
+			background-image: url("../static/background.png");
+
+			/* Full height */
+
+
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-size: cover;
+		}
+
+		h1 {
+			overflow: hidden;
+			/* Ensures the content is not revealed until the animation */
+			border-right: .15em solid transparent;
+			/* The typwriter cursor */
+			white-space: nowrap;
+			/* Keeps the content on a single line */
+			margin: 0 auto;
+			/* Gives that scrolling effect as the typing happens */
+			animation: typing 2.5s steps(40),
+			blink-caret .50s step-end 4;
+		}
+
+		#videoElement {
+			transform: rotateY(180deg);
+			-webkit-transform: rotateY(180deg);
+			/* Safari and Chrome */
+			-moz-transform: rotateY(180deg);
+			/* Firefox */
+		}
+
+		/* The typing effect */
+		@keyframes typing {
+			from {
+				width: 0
+			}
+			to {
+				width: 1200px
+			}
+		}
+
+		/* The typewriter cursor effect */
+		@keyframes blink-caret {
+			from,
+			to {
+				border-color: transparent
+			}
+			50% {
+				border-color: orange;
+			}
+		}
+
+		.b1:hover {
+			cursor: pointer;
+			background-color: white;
+			color: black;
+		}
+
+		.b2:hover {
+			cursor: pointer;
+			background-color: white !important;
+			color: #f02f22;
+			border: 2px solid #f02f22;
+		}
+
+		.card {
+			border-radius: 10px;
+			border: 1.5px solid black
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bg">
+		<br><br><br>
+  <h1 style="text-align:center;font-size:80px">Productivity Manager</h1>
+  <br><br>
+      <div style="display: block;margin-left: 15%;margin-right: 15%;">
+      <div class="card-deck">
+        <div id = "tabCard" class="card text-white mb-3"style="width: 300; background-color: rgba(58, 237, 26, 0.75);">
+          <div class="card-body">
+            <div id="tabMessage" style="color:black; text-align:center;">You're on the site!</div></div>
+        </div>
+        <div id="phoneCard" class="card text-white mb-3"style="width: 300; background-color: rgba(58, 237, 26, 0.75);">
+          <div class="card-body">
+            <div id="phoneMessage" style="color:black; text-align:center;"> You're not using your phone right now. Way to stay on task!</div></div>
+        </div>
+        <div id = "eyeCard" class="card text-white mb-3" style="width: 300; background-color: rgba(58, 237, 26, 0.75);">
+          <div class="card-body">
+            <div id="eyeMessage" style="color:black; text-align:center;">Good job! You are not asleep.</div></div>
+        </div>
+      </div>
+      </div>
+      <br>
+      <div style="text-align:center;background-color:rgba(237, 231, 213, 0.3); padding:7px"><span id="time" style="color:black;font-size:40px;font-family:Montserrat">0:00:00</span></div>
+      <br>
+      <br>
+      <center>
+        <video autoplay="true" id="videoElement"></video>
+      </center>
+    <br>
+    <div style="text-align:center">
+    <a class="b1 btn btn-primary" style="width:20%;font-size:20px;margin:2%;    border:2px solid black;" href="/" role="button">Go Back Home</a>
+    <a class="b2 btn btn-primary" style="background-color:#f02f22;width:20%;font-size:20px;margin:2%;border:2px solid black;" role="button" onclick="sendData()">End Study Session!</a>
+    </div>  
+  </div>  
+</body>
+
+
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" type="text/javascript"></script>
+<script src="https://docs.opencv.org/3.4.0/opencv.js" type="text/javascript"></script>
+<script>
+
+
+  function convertTime(time){
+    var hrs = ~~(time / 3600);
+    var mins = ~~((time % 3600) / 60);
+    var secs = ~~time % 60;
+
+    var ret = "";
+    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+  }
+  var timeElapsed = 0;
+  function tick() {
+      timeElapsed++;
+      document.getElementById("time").innerHTML = convertTime(timeElapsed);
+  }
+  setInterval(tick, 1000)
+
+  //GRAPH VARIABLES
+  var tabData = [1]
+  var phoneData = [1]
+  var eyeData = [1]
+
+
+  function checkFocus() {
+    var info = document.getElementById("tabMessage");
+
+    if ( document.hasFocus() ) {
+      document.getElementById("tabCard").style = "background-color: rgba(58, 237, 26, 0.75);";
+      focused = true;
+      info.innerHTML = "You're on the site!";
+      tabData.push((tabData[tabData.length-1]*tabData.length+1)/(tabData.length+1))
+    } else {
+      if(focused==true){
+        document.getElementById("tabCard").style = "background-color: rgba(219, 67, 61, 0.75);";
+        var audio = new Audio('https://www.myinstants.com/media/sounds/mark-ronson-uptown-funk-ft.mp3');
+        audio.volume = 0.4
+        audio.play();
+      }
+      tabData.push((tabData[tabData.length-1]*tabData.length)/(tabData.length+1))
+      focused = false;
+      info.innerHTML = "You're off the site!";
+    }
+    }
+    var focused = true;
+  setInterval(checkFocus, 1000);
+
+  var videoId = 'video';
+var scaleFactor = 0.25;
+var snapshots = [];
+ 
+/**
+ * Captures a image frame from the provided video element.
+ *
+ * @param {Video} video HTML5 video element from where the image frame will be captured.
+ * @param {Number} scaleFactor Factor to scale the canvas element that will be return. This is an optional parameter.
+ *
+ * @return {Canvas}
+ */
+function capture(video, scaleFactor) {
+    if(scaleFactor == null){
+        scaleFactor = 1;
+    }
+    var w = video.videoWidth * scaleFactor;
+    var h = video.videoHeight * scaleFactor;
+    var canvas = document.createElement('canvas');
+        canvas.width  = w;
+        canvas.height = h;
+    var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, w, h);
+    return canvas;
+} 
+ 
+/**
+ * Invokes the <code>capture</code> function and attaches the canvas element to the DOM.
+ */
+function shoot(){
+    var video  = document.getElementById(videoId);
+    var output = document.getElementById('output');
+    var canvas = capture(video, scaleFactor);
+        canvas.onclick = function(){
+            window.open(this.toDataURL());
+        };
+    snapshots.unshift(canvas);
+    output.innerHTML = '';
+    for(var i=0; i<4; i++){
+        output.appendChild(snapshots[i]);
+    }
+}
+</script>
+<script>
+    var socket = io();
+
+    socket.on('connect', function(){
+        console.log("Connected...!", socket.connected)
+    });
+
+    const video = document.querySelector("#videoElement");
+
+    video.width = 600; 
+    video.height = 400;
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function (err0r) {
+            console.log(err0r)
+            console.log("Something went wrong!");
+        });
+    }
+
+    let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+    let cap = new cv.VideoCapture(video);
+    
+    const FPS = 1;
+
+    setInterval(() => {
+        cap.read(src);
+
+        var type = "image/png"
+        
+        var video_element = document.getElementById("videoElement")
+        var frame = capture(video_element, 1)
+        var data = frame.toDataURL(type);
+        data = data.replace('data:' + type + ';base64,', ''); 
+        socket.emit('image', data);
+    }, 1000/FPS);
+
+
+    socket.on('response_back', function(data){
+        phoneStatus = data[0]
+        eyeStatus = data[1]
+
+        phone_message = document.getElementById('phoneMessage')
+        if (phoneStatus){
+          document.getElementById("phoneCard").style = "background-color: rgba(219, 67, 61, 0.75);";
+          if(phone_message.innerHTML != "Get off your phone and focus up!"){
+            var audio = new Audio('static/Its Time To Stop.mp3');
+            audio.volume = 0.4
+            audio.play();
+          }
+          phone_message.innerHTML = "Get off your phone and focus up!" 
+          phoneData.push((phoneData[phoneData.length-1]*phoneData.length)/(phoneData.length+1))
+        }
+        else{
+          document.getElementById("phoneCard").style = "background-color: rgba(58, 237, 26, 0.75);";
+          phone_message.innerHTML = "You're not using your phone right now. Way to stay on task!"
+          phoneData.push((phoneData[phoneData.length-1]*phoneData.length+1)/(phoneData.length+1))
+        }
+
+        eye_message = document.getElementById('eyeMessage')
+        if (eyeStatus){
+          document.getElementById("eyeCard").style = "background-color: rgba(219, 67, 61, 0.75);";
+          if(eye_message.innerHTML != "Wake up!"){
+            var audio = new Audio('https://www.tones7.com/media/i_said_wake_up.mp3');
+            audio.volume = 0.4
+            audio.play();
+          }
+          eye_message.innerHTML = "Wake up!"
+          eyeData.push((eyeData[eyeData.length-1]*eyeData.length)/(eyeData.length+1))
+        }
+        else{
+          document.getElementById("eyeCard").style = "background-color: rgba(58, 237, 26, 0.75);";
+          eye_message.innerHTML = "Good job! You are not asleep."
+          eyeData.push((eyeData[eyeData.length-1]*eyeData.length+1)/(eyeData.length+1))
+        }
+    });
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+
+    });
+    function sendData(){
+      socket.emit('get_data', {'tabData':tabData, "phoneData":phoneData, "eyeData":eyeData});
+
+    }
+
+</script>

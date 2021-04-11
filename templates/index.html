@@ -1,0 +1,216 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Productivity Manager</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    <link rel="icon" type="image/png" href="static/owl.png"/>
+
+  <style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .bg {
+    /* The image used */
+    background-image: url("../static/background.png");
+
+    /* Full height */
+
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-size: cover;
+  }
+  h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid transparent; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  animation: 
+    typing 2.5s steps(40),
+    blink-caret .50s step-end 4;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 1200px }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+
+  .card {
+  transition: box-shadow .3s;
+  border: 1px solid black;
+  }
+  .card:hover {
+    box-shadow: 0 0 15px rgba(33,33,33,1); 
+  }
+
+  .fade1 {
+    animation: fadeIn1 3.5s;
+    -webkit-animation: fadeIn1 3.5s;
+    -moz-animation: fadeIn1 3.5s;
+  }
+  @keyframes fadeIn1 {
+    0% {opacity:0;}
+    60% {opacity:0;}
+    100% {opacity:1;}
+  }
+  @-moz-keyframes fadeIn1 {
+    0% {opacity:0;}
+    60% {opacity:0;}
+    100% {opacity:1;}
+  }
+  @-webkit-keyframes fadeIn1 {
+    0% {opacity:0;}
+    60% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  .fade2 {
+    animation: fadeIn2 3.8s;
+    -webkit-animation: fadeIn2 3.8s;
+    -moz-animation: fadeIn2 3.8s;
+  }
+  @keyframes fadeIn2 {
+    0% {opacity:0;}
+    65% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-moz-keyframes fadeIn2 {
+    0% {opacity:0;}
+    65% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-webkit-keyframes fadeIn2 {
+    0% {opacity:0;}
+    65% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  .fade3 {
+    animation: fadeIn3 4s;
+    -webkit-animation: fadeIn3 4s;
+    -moz-animation: fadeIn3 4s;
+  }
+  @keyframes fadeIn3 {
+    0% {opacity:0;}
+    70% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-moz-keyframes fadeIn3 {
+    0% {opacity:0;}
+    70% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-webkit-keyframes fadeIn3 {
+    0% {opacity:0;}
+    70% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  .fade4 {
+    animation: fadeIn4 4.2s;
+    -webkit-animation: fadeIn4 4.2s;
+    -moz-animation: fadeIn4 4.2s;
+  }
+  @keyframes fadeIn4 {
+    0% {opacity:0;}
+    75% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-moz-keyframes fadeIn4 {
+    0% {opacity:0;}
+    75% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  @-webkit-keyframes fadeIn4 {
+    0% {opacity:0;}
+    75% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+.btn{
+  box-shadow: 0 0 0 0 rgba(72, 217, 96, 0.7);
+    -webkit-animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    transition: all 300ms ease-in-out;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+@-webkit-keyframes pulsing {
+  to {
+    box-shadow: 0 0 0 15px rgba(0,0,0,0);
+  }
+}
+@-moz-keyframes pulsing {
+  to {
+    box-shadow: 0 0 0 15px rgba(0,0,0,0);
+  }
+}
+@keyframes pulsing {
+  to {
+    box-shadow: 0 0 0 15px rgba(0,0,0,0);
+  }
+}
+  }
+
+  </style>
+</head>
+<body style="">
+  <div class="bg">
+  <br><br>
+  <h1 style="text-align:center;font-size:80px">Productivity Manager</h1>
+  <br>
+  <h2 class="fade1" style="color:#404040;text-align:center;font-size:35px;font-family:Trirong;  text-transform: inherit;"><i>What is Productivity Manager?</i></h2>
+  <p class="fade1" style="text-align:center;color:black;font-size:25px; margin:40px">Productivity Manager is your buddy to help you study better! This application will keep track and notify you of any distractions while you are working. Press the button at the bottom to begin <span style="font-size:30px">&darr;</span>
+</p>
+
+  <div style="display: block;margin-left: 15%;margin-right: 15%;">
+  <div class="card-deck">
+    <div class="fade2 card text-white bg-dark mb-3"style="width: 300">
+      <div class="card-header">Eye Tracking</div>
+      <img src="static/eye_track.png" height="300" style="margin=100px">
+      <p class="card-body">We've implemented an eye tracking system to check if you are dozing off or spacing out. Using the webcam, the application will see if your eyes are in view.</p>
+    </div>
+
+    <div class="fade3 card bg-light mb-3" style="width: 300">
+      <div class="card-header">Tab Switching</div>
+      <img src="static/browser_tab.jpeg" height="300" style="margin=100px">
+      <p class="card-body">Getting preoccupied by Youtube or Reddit? We tally the number of times you have switched to another tab while studying. </p>
+    </div>
+
+    <div class="fade4 card text-white bg-info mb-3" style="width: 300">
+      <div class="card-header">Phone Detection</div>
+      <img src="static/phone_track.jpeg" height="300" style="margin=100px">
+      <p class="card-body">It's easy to become distracted by the notifications on your phone by Instagram posts or DMs. We make sure your phone or other mobile devices are out of sight.</p>
+    </div>
+  </div>
+  </div>
+   
+<div class="fade1" style="text-align:center">
+<a class="btn btn-primary" style="width:20%;font-size:20px;margin:2%;    border:2px solid black;" href="camera" role="button">Start Study Session!</a>
+</div>
+</div>
+</body>
+

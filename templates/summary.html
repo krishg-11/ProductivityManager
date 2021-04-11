@@ -1,0 +1,73 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Productivity Manager - Summary</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="static/owl.png"/>
+  <style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .bg {
+    /* The image used */
+    background-image: url("../static/background.png");
+
+    /* Full height */
+
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-size: cover;
+  }
+  h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid transparent; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  animation: 
+    typing 2.5s steps(40),
+    blink-caret .50s step-end 4;
+  }
+  #videoElement{
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+  }
+
+   /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 1000px }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+  .btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+  }
+
+
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <br><br><br>
+    <h1 style="text-align:center;font-size:80px">Summary</h1>
+    <br><br>
+      <div style="text-align:center">
+      <img src="static/test{{count}}.jpg">
+      </div>
+    <div style="text-align:center">
+    <a class="btn btn-primary" style="width:20%;font-size:20px;margin:2%;    border:2px solid black;" href="/" role="button">Go Back Home</a>
+    </div>  <br><br><br><br><br><br><br>
+  </div>  
+</body>
