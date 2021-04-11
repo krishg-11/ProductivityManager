@@ -10,7 +10,6 @@ from find_phone import find_phone
 from eye_track import eyes_are_closed
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
 app = Flask(__name__)
 app.static_folder = 'static'
