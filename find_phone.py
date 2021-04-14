@@ -1,10 +1,11 @@
 import boto3
 import config
+from replit import db
 
 client=boto3.client('rekognition',
-                      aws_access_key_id=config.aws_access_key_id,
-                      aws_secret_access_key=config.aws_secret_access_key,
-                      region_name=config.region_name)
+                      aws_access_key_id=db['aws_access_key_id'],
+                      aws_secret_access_key=db['aws_secret_access_key'],
+                      region_name=db['region_name'])
                       
 def find_phone(bin_img):
   response = client.detect_labels(Image={'Bytes': bin_img}, MaxLabels=10)
